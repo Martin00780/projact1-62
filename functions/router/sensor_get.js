@@ -98,7 +98,7 @@ router.post('/chart', (req, res) => {
         };
         var newvalues = {
             $push: {
-                "data_chart": { "temperature": req.body.temperature ?? "25.0", "humidity": req.body.humidity ?? "50", "light": req.body.light ?? "DISABLED", "timestamp": req.body.timestamp ?? Math.floor(Date.now() /1000).toString() }
+                "data_chart": { "temperature": req.body.temperature !== null ? req.body.temperature: "25.0", "humidity": req.body.humidity!== null ? req.body.humidity: "50", "light": req.body.light !== null ? req.body.light: "DISABLED", "timestamp": req.body.timestamp  !==null ? req.body.timestamp: Math.floor(Date.now() / 1000).toString()}
             }
         };
         dbo.collection("sensors").updateMany(myquery, newvalues, function (err, result) {
